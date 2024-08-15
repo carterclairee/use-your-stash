@@ -122,7 +122,7 @@ router.get("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// POST yarn and update the junction table
+// POST yarn and update the junction table. I decided to update the yarn_pattern table at the same time as posting so that the matching patterns would be immediately available, but I'm not sure if this is the most efficient method.
 router.post("/yarn", async function(req, res, next) {
   const {name, brand, weight, yardage, color, fiber_type} = req.body;
 
@@ -160,5 +160,42 @@ router.post("/yarn", async function(req, res, next) {
   }
 });
 
+// POST pattern and update the junction table with matching yarns
+router.post("/patterns", async function(req, res, next) {
+  const {name, brand, project_type, yardage_needed, yarn_weight, notes, difficulty} = req.body;
+
+  try {
+    // Insert the new pattern
+    await db(
+      `INSERT INTO patterns (name, brand, project_type, yardage_needed, yarn_weight, notes, difficulty) VALUES ("${name}", "${brand}", "${project_type}", "${yardage_needed}", "${yarn_weight}", "${notes}", "${difficulty}");`
+    );
+
+    // Get the most recently inserted pattern (the highest id since id is auto-incremented)
+    const updatedList = await db(
+      "SELECT * FROM patterns ORDER BY id DESC;"
+    );
+
+    const newPatternId = updatedList.data[0].id;
+
+    // Update the junction table based on matching weights
+    await db(
+      `INSERT INTO yarn_patterns (yarn_id, pattern_id)
+      SELECT id, ${newPatternId}
+      FROM yarn 
+      WHERE weight = "${yarn_weight}";`
+    );
+
+    // Send the full, updated list back
+    const results = await db(
+      "SELECT * FROM patterns ORDER BY name ASC;"
+    );
+
+    // 201 message to show it was created
+    res.status(201).send(results.data);
+
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
 
 module.exports = router;
