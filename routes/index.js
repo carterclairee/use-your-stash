@@ -58,6 +58,7 @@ router.get("/yarn/:id", async function (req, res, next) {
     const response = {
       yarn_id: y.yarn_id,
       yarn_name: y.yarn_name,
+      yarn_brand: y.yarn_brand,
       weight: y.weight,
       yardage: y.yardage,
       color: y.color,
@@ -71,6 +72,51 @@ router.get("/yarn/:id", async function (req, res, next) {
     res.status(500).send({ error: error.message });
   }
 });
+
+// GET a particular pattern and its matching yarns
+router.get("/patterns/:id", async function (req, res, next) {
+  try {
+    const results = await db (
+      `SELECT yp.pattern_id, p.name AS pattern_name, p.brand AS pattern_brand, p.project_type, p.yardage_needed, p.yarn_weight, p.notes, p.difficulty, yp.yarn_id, y.name AS yarn_name, y.brand AS yarn_brand, y.yardage, y.color, y.fiber_type   
+      FROM patterns AS p 
+      LEFT JOIN yarn_patterns AS yp ON p.id = yp.pattern_id 
+      LEFT JOIN yarn AS y ON yp.yarn_id = y.id 
+      WHERE p.id = ${req.params.id} AND y.yardage >= p.yardage_needed;` 
+    );
+
+    // treat the data
+    const yarnArray = [];
+    for (let y of results.data) {
+      yarnArray.push({
+        yarn_id: y.yarn_id,
+        yarn_name: y.yarn_name,
+        yarn_brand: y.yarn_brand,
+        yardage: y.yardage,
+        color: y.color,
+        fiber_type: y.fiber_type,
+      });
+    }
+
+    const p = results.data[0];
+    const response = {
+      pattern_id: p.pattern_id,
+      pattern_name: p.pattern_name,
+      pattern_brand: p.pattern_brand,
+      project_type: p.project_type,
+      yardage_needed: p.yardage_needed,
+      notes: p.notes,
+      difficulty: p.difficulty,
+      matching_yarn: yarnArray
+    };
+
+    // Send the response
+    res.send(response);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// POST yarn
 
 
 module.exports = router;
