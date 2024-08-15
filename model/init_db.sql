@@ -13,7 +13,7 @@ DROP TABLE if exists patterns;
 --
 -- Create Tables
 --
--- CHANGE THESE WITH DRAW SQL CODE
+-- Create tables with drawSQL code
 CREATE TABLE yarn (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
     name VARCHAR(255) not null, 
