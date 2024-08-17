@@ -198,4 +198,28 @@ router.post("/patterns", async function(req, res, next) {
   }
 });
 
+// DELETE yarn
+router.delete("/yarn/:id", async function (req, res, next) {
+  const {id} = req.params;
+  try {
+    // Need to first delete yarn from the junction table
+    // Check if the yarn exists in the junction table
+    const yarnExists = await db(`SELECT yarn_id FROM yarn_patterns WHERE yarn_id = ${id};`);
+
+    // If it exists, delete records
+    if (yarnExists.data.length) {
+      await db(`DELETE from yarn_patterns WHERE yarn_id = ${id};`);
+    }
+
+    // Now delete from the yarn table
+    await db(`DELETE from yarn WHERE id = ${id};`);
+    // Send updated list back
+    const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
+    );
+    res.send(results.data);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  };
+});
+
 module.exports = router;
