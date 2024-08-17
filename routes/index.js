@@ -243,7 +243,25 @@ router.delete("/patterns/:id", async function (req, res, next) {
     res.send(results.data);
   } catch (error) {
     res.status(500).send({ error: error.message });
-  };
+  }
+});
+
+// PUT a new yardage to yarn; don't want user to change anything other than yardage
+router.put("/yarn/:id", async function (req, res, next) {
+  const {id} = req.params;
+  const {yardage} = req.body;
+
+  // This is more of a patch instead of a put, but I'm not as familiar with that one so I will maybe refactor later when I have time
+  try {
+    await db(`UPDATE yarn SET yardage = "${yardage}" WHERE id = "${id}";`);
+    
+    // Send updated list back
+    const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
+    );
+    res.send(results.data);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+}
 });
 
 module.exports = router;
