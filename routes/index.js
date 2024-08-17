@@ -222,4 +222,28 @@ router.delete("/yarn/:id", async function (req, res, next) {
   };
 });
 
+// DELETE pattern
+router.delete("/patterns/:id", async function (req, res, next) {
+  const {id} = req.params;
+  try {
+    // Need to first delete from the junction table
+    // Check if the pattern exists in the junction table
+    const patternExists = await db(`SELECT pattern_id FROM yarn_patterns WHERE pattern_id = ${id};`);
+
+    // If it exists, delete records
+    if (patternExists.data.length) {
+      await db(`DELETE from yarn_patterns WHERE pattern_id = ${id};`);
+    }
+
+    // Now delete from the pattern table
+    await db(`DELETE from patterns WHERE id = ${id};`);
+    // Send updated list back
+    const results = await db("SELECT * FROM patterns ORDER BY name ASC;"
+    );
+    res.send(results.data);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  };
+});
+
 module.exports = router;
