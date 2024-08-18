@@ -246,22 +246,84 @@ router.delete("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// PUT a new yardage to yarn; don't want user to change anything other than yardage
-router.put("/yarn/:id", async function (req, res, next) {
-  const {id} = req.params;
-  const {yardage} = req.body;
+// I'd like to use the PUTs below, but I'm having a hard time getting the yarn yardage one to work. The UPDATE works if the DELETE is commented out, and vice versa, but they don't work at the same time. I spent too much time trying to get them to work, so I'm just going to move on to the front end and figure them out someday.
 
-  // This is more of a patch instead of a put, but I'm not as familiar with that one so I will maybe refactor later when I have time
-  try {
-    await db(`UPDATE yarn SET yardage = "${yardage}" WHERE id = "${id}";`);
+// // PUT a new yardage to yarn; don't want user to change anything other than yardage
+// router.put("/yarn/:id", async function (req, res, next) {
+//   const {id} = req.params;
+//   const {yardage} = req.body;
+
+//   // This is more of a patch instead of a put, but I'm not as familiar with that one so I will maybe refactor later when I have time
+//   try {
+//     await db(`UPDATE yarn SET yardage = "${yardage}" WHERE id = "${id}";`);
+
+//     // Add to the yarns_pattern table, if needed, based on new yardage
+//     // AND NOT EXISTS only returns true if there are no matching records already in the yarn_patterns table. If it returns FALSE, the insert will not execute
+
+//     // Check if there are patterns to add
+//     const patternsToAdd = await db(
+//       `SELECT p.id from patterns AS p
+//       WHERE p.yardage_needed <= "${yardage}"
+//       AND NOT EXISTS (
+//         SELECT 1 FROM yarn_patterns AS yp
+//         WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
+//     );
+
+//     // Add patterns only if there are some that need to be added
+//     if (patternsToAdd.data.length > 0) {
+//       await db(
+//         `INSERT INTO yarn_patterns (yarn_id, pattern_id)
+//         SELECT ${id}, p.id
+//         FROM patterns AS p
+//         WHERE p.yardage_needed <= 
+//           (SELECT yardage FROM yarn WHERE id = ${id})
+//         AND NOT EXISTS (
+//           SELECT 1 FROM yarn_patterns AS yp
+//           WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
+//       );
+//     };
+
+//     // Delete from the yarns_pattern table, if needed, based on new yardage
+//     const patternsToDelete = await db(
+//       `SELECT p.id FROM patterns AS p WHERE p.yardage_needed > "${yardage}";`
+//     );
+
+//     if (patternsToDelete.data.length > 0) {
+//       await db(
+//         `DELETE FROM yarn_patterns
+//         WHERE yarn_id = ${id}
+//         AND pattern_id IN (
+//           SELECT p.id FROM patterns AS p
+//           WHERE p.yardage_needed > 
+//             (SELECT yardage FROM yarn WHERE id = ${id}));`
+//       );
+//     };
     
-    // Send updated list back
-    const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
-    );
-    res.send(results.data);
-  } catch (error) {
-    res.status(500).send({ error: error.message });
-}
-});
+//     // Send updated list of yarns back
+//     const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
+//     );
+//     res.send(results.data);
+//   } catch (error) {
+//     res.status(500).send({ error: error.message });
+// }
+// });
+
+// // PUT new notes to a pattern; don't want user to change anything else
+// router.put("/patterns/:id", async function (req, res, next) {
+//   const {id} = req.params;
+//   const {notes} = req.body;
+
+//   // This is more of a patch instead of a put, but I'm not as familiar with that one so I will maybe refactor later when I have time
+//   try {
+//     await db(`UPDATE patterns SET notes = "${notes}" WHERE id = "${id}";`);
+    
+//     // Send updated list back
+//     const results = await db("SELECT * FROM patterns ORDER BY name ASC;"
+//     );
+//     res.send(results.data);
+//   } catch (error) {
+//     res.status(500).send({ error: error.message });
+// }
+// });
 
 module.exports = router;
