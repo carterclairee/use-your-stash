@@ -1,6 +1,5 @@
 import React from "react";
 import greyyarn from '../assets/tara-evans-IcvR0jFbsz0-unsplash.jpg';
-import './Home.css';
 
 function Home() {
 return (

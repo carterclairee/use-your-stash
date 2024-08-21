@@ -1,30 +1,70 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route, NavLink} from 'react-router-dom';
 import logo from './assets/icons8-yarn-80.png';
 import Home from './components/Home';
 import Yarn from './components/Yarn';
 import Patterns from './components/Patterns';
+import Page404 from './components/Page404';
 
 function App() {
 
   return (
     <>
-    {/* Top display */}
-    <div className="d-flex container-fluid bg-dark text-white">
-      <div>
-        <img className="logo m-2" src={logo} alt="yarn icon"/>
+    {/* Nav Bar using React Router NavLink and Bootstrap styling*/}
+    <nav id="mainnav" className="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div className="container-fluid">
+        <ul className="navbar-nav">
+          <li className="nav-item pe-1">
+            <img src={logo} alt="yarn icon" className="logo" />
+          </li>
+
+          <li className="nav-item pe-4">
+            <h1 className="text-light">Use Your Stash</h1>
+          </li>
+
+          <li className="nav-item pe-3">
+            <NavLink
+              to="/"
+              className={({ isActive, isPending }) =>
+              isPending? "pending" : isActive ? "active" : ""
+              }
+            >
+            home
+            </NavLink>
+          </li>
+
+          <li className="nav-item pe-3">
+            <NavLink
+              to="/yarn"
+              className={({ isActive, isPending }) =>
+              isPending? "pending" : isActive ? "active" : ""
+              }
+            >
+            yarn
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink
+              to="/patterns"
+              className={({ isActive, isPending }) =>
+              isPending? "pending" : isActive ? "active" : ""
+              }
+            >
+            patterns
+            </NavLink>
+          </li>
+        </ul>
       </div>
-      <h1 className="m-2 align-self-center">Use Your Stash</h1>
-      <p className="m-2 ms-5 top-links align-self-center">yarn</p>
-      <p className="m-2 ms-5 top-links align-self-center">patterns</p>
-    </div>
+    </nav>
 
     {/* Routes */}
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/yarn" element={<Yarn />} />
       <Route path="/patterns" element={<Patterns />} />
+      <Route path="*" element={<Page404 />} />
     </Routes>
     </>
   )

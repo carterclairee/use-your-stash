@@ -1,13 +1,18 @@
 h1 {
   font-size: 25px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif
-}
-
-.top-links {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .logo {
   height: auto;
   width: 35px;
+}
+
+#mainnav a.active {
+  text-decoration: none;
+  color: lightsalmon;
+}
+
+#mainnav a {
+  text-decoration: none;
+  color: white;
 }
