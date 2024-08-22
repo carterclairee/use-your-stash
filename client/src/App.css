@@ -20,3 +20,30 @@ h1 {
   text-decoration: none;
   color: white;
 }
+
+/* Yarn.css */
+.title-image-container {
+  height: 75px; /* image height */
+  overflow: hidden; /* hide overflow to maintain height */
+}
+
+.title-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* covers container but keeps aspect ratio */
+}
+
+.title-card {
+  border-radius: 0;
+}
+
+.title-text {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+/* YarnItem */
+.skein-icon {
+  height: auto;
+  width: 40px;
+}

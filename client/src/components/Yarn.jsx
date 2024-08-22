@@ -3,14 +3,30 @@ import { useEffect, useState } from 'react';
 import './Yarn.css';
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 import YarnForm from './YarnForm.jsx';
+import YarnItem from './YarnItem.jsx';
 
 function Yarn() {
     const [allYarn, setAllYarn] = useState([]);
 
+    useEffect(() => {
+        getYarn();
+    }, []);
+
+    // Get yarn from the database
+    const getYarn = async () => {
+        try {
+            const results = await fetch('api/yarn');
+            const json = await results.json();
+            setAllYarn(json);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleAddYarn = (newYarn) => {
         setAllYarn((state) => [...state, newYarn]);
         console.log(allYarn);
-    }
+    };
 
 
     return (
@@ -29,14 +45,19 @@ function Yarn() {
         <div className="row">
             {/* Form */}
             <div className="col-sm-3">
-                <h3 className="text-center pt-2 pb-2">Add Yarn</h3>
+                <h3 className="text-center pt-3 pb-2">Add Yarn</h3>
                 <YarnForm addYarn={(newYarn) => handleAddYarn(newYarn)}/>
             </div>
 
             {/* Main Content */}
             <div className="col-sm-9">
-                <h3 className="container-fluid text-center pt-2">Your Yarn Stash</h3>
-                
+                <h3 className="container-fluid text-center pt-3 pb-2">Your Yarn Stash</h3>
+                {/* Display all yarn*/}
+                <div className="row container">
+                    {allYarn.map(item => (
+                        <YarnItem key={item.id} item={item}/>
+                    ))};
+                </div>
             </div>
         </div>
 
