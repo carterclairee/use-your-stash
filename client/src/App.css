@@ -7,9 +7,13 @@ h1 {
   width: 35px;
 }
 
+#mainnav {
+  display: flex;
+}
+
 #mainnav a.active {
   text-decoration: none;
-  color: lightsalmon;
+  color: lightskyblue;
 }
 
 #mainnav a {

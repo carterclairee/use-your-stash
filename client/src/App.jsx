@@ -23,7 +23,7 @@ function App() {
             <h1 className="text-light">Use Your Stash</h1>
           </li>
 
-          <li className="nav-item pe-3">
+          <li className="nav-item pe-3 align-self-center">
             <NavLink
               to="/"
               className={({ isActive, isPending }) =>
@@ -34,7 +34,7 @@ function App() {
             </NavLink>
           </li>
 
-          <li className="nav-item pe-3">
+          <li className="nav-item pe-3 align-self-center">
             <NavLink
               to="/yarn"
               className={({ isActive, isPending }) =>
@@ -45,7 +45,7 @@ function App() {
             </NavLink>
           </li>
 
-          <li className="nav-item">
+          <li className="nav-item align-self-center">
             <NavLink
               to="/patterns"
               className={({ isActive, isPending }) =>
