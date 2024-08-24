@@ -55,14 +55,25 @@ function YarnForm({addYarn}) {
             </div>
 
             <div className="form-floating ms-3">
-                {/* Weight...This will be a drop down in future for data control */}
-                <input type="text" className="form-control mb-2" id="floatingInput3" placeholder="text"
-                // Value and name for 2-way binding
-                value={yarn.weight}
-                name="weight"
-                // Event listener
-                onChange={e => handleInput(e)}/>
-                <label htmlFor="floatingInput3">Weight</label>
+                <select 
+                    className="form-select mb-2" 
+                    id="floatingSelect3"
+                    // Value and name for 2-way binding
+                    value={yarn.weight}
+                    name="weight"
+                    // Event listener
+                    onChange={e => handleInput(e)}
+                >
+                {/* Weight options */}
+                <option value="lace">lace</option>
+                <option value="fingering">fingering</option>
+                <option value="sport">sport</option>
+                <option value="dk">dk</option>
+                <option value="worsted">worsted</option>
+                <option value="bulky">bulky</option>
+                <option value="super-bulky">super bulky</option>
+                </select>
+                <label htmlFor="floatingSelect3">Weight</label>
             </div>
 
             <div className="form-floating ms-3">

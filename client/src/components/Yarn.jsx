@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from 'react';
-import './Yarn.css';
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 import YarnForm from './YarnForm.jsx';
 import YarnItem from './YarnItem.jsx';
@@ -23,11 +22,25 @@ function Yarn() {
         }
     };
 
-    const handleAddYarn = (newYarn) => {
-        setAllYarn((state) => [...state, newYarn]);
-        console.log(allYarn);
+    const handleAddYarn = async (newYarn) => {
+        try {
+            const results = await fetch("/api/yarn", {
+                method: "POST",
+                headers: {
+                  // specifying that we're communicating in JSON
+                  "Content-Type": "application/json"
+                },
+                // Send the newYarn to the server as a string
+                body: JSON.stringify(newYarn)
+            });
+            // Get the response from the call
+            const updatedYarn = await results.json();
+            // Set the allYarn state to the new list
+            setAllYarn(updatedYarn);
+        } catch (error) {
+            console.log(error);
+        }
     };
-
 
     return (
         <>
@@ -56,7 +69,7 @@ function Yarn() {
                 <div className="row container">
                     {allYarn.map(item => (
                         <YarnItem key={item.id} item={item}/>
-                    ))};
+                    ))}
                 </div>
             </div>
         </div>

@@ -1,37 +1,37 @@
 import React from "react";
-import skein from "../assets/icons8-yarn-80.png";
 
 function YarnItem({item}) {
 
 return (
     <>
     <div className="col-sm-4">
-        <div className="card text-white bg-dark">
+        <div className="card bg-dark text-white mb-2">
             <div className="card-body">
-                <div className="d-flex">
-                    <img src={skein} alt="yarn icon" className="skein-icon"/>
-                    <h4 className="card-title">{item.name}</h4>
-                </div>
-                    <div className="row">
-                        <div className="col-sm-5">
-                            <p className="card-text">
-                            Brand:<br></br>
-                            Weight:<br></br>
-                            Yardage:<br></br>
-                            Color:<br></br>
-                            Fiber type:<br></br>
-                            </p>
-                        </div>
-                        <div className="col-sm-7">
-                            <p className="card-text">
-                            {item.brand}<br></br>
-                            {item.weight}<br></br>
-                            {item.yardage}<br></br>
-                            {item.color}<br></br>
-                            {item.fiber_type}<br></br>
-                            </p>
-                        </div>
-                    </div>
+                <h5 className="card-title text-center yarn-card-title">{item.name}</h5>
+                    <table className="table table-dark table-borderless table-sm">
+                        <tbody className="table table-dark">
+                            <tr>
+                                <td className="card-text category">Brand</td>
+                                <td className="card-text">{item.brand}</td>
+                            </tr>
+                            <tr>
+                                <td className="card-text category">Weight</td>
+                                <td className="card-text">{item.weight}</td>
+                            </tr>
+                            <tr>
+                                <td className="card-text category">Yardage</td>
+                                <td className="card-text">{item.yardage}</td>
+                            </tr>
+                            <tr>
+                                <td className="card-text category">Color</td>
+                                <td className="card-text">{item.color}</td>
+                            </tr>
+                            <tr>
+                                <td className="card-text category">Fiber</td>
+                                <td className="card-text">{item.fiber_type}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

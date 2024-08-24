@@ -47,3 +47,12 @@ h1 {
   height: auto;
   width: 40px;
 }
+
+.category {
+  font-weight: bold;
+  width: 100px;
+}
+
+.yarn-card-title {
+  color: goldenrod;
+}
