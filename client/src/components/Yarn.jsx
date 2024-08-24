@@ -42,6 +42,18 @@ function Yarn() {
         }
     };
 
+    const deleteYarn = async (id) => {
+        try {
+            const results = await fetch(`/api/yarn/${id}`, {
+                method: "DELETE"
+            });
+            const updatedYarn = await results.json();
+            setAllYarn(updatedYarn);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <>
         {/* Title section...I think I don't really need this because it's clear it's a yarn page already, so I may revise to just have image*/}
@@ -68,7 +80,7 @@ function Yarn() {
                 {/* Display all yarn*/}
                 <div className="row container">
                     {allYarn.map(item => (
-                        <YarnItem key={item.id} item={item}/>
+                        <YarnItem key={item.id} item={item} deleteYarn={deleteYarn}/>
                     ))}
                 </div>
             </div>

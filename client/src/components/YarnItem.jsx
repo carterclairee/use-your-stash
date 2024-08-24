@@ -1,13 +1,22 @@
 import React from "react";
 
-function YarnItem({item}) {
+function YarnItem({item, deleteYarn}) {
 
 return (
     <>
     <div className="col-sm-4">
         <div className="card bg-dark text-white mb-2">
             <div className="card-body">
-                <h5 className="card-title text-center yarn-card-title">{item.name}</h5>
+                <div className="d-flex justify-content-between">
+                    <h5 className="card-title yarn-card-title">{item.name}</h5>
+                    <div>
+                        <i 
+                        // Call delete function
+                        onClick={() => deleteYarn(item.id)}
+                        role="button" 
+                        className="fa-regular fa-trash-can"></i>
+                    </div>
+                </div>
                     <table className="table table-dark table-borderless table-sm">
                         <tbody className="table table-dark">
                             <tr>
