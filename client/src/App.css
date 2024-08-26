@@ -23,7 +23,7 @@ h1 {
 
 /* Yarn.css */
 .title-image-container {
-  height: 75px; /* image height */
+  height: 50px; /* image height */
   overflow: hidden; /* hide overflow to maintain height */
 }
 

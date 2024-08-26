@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from 'react';
+import { Link, Outlet } from "react-router-dom";
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 import YarnForm from './YarnForm.jsx';
-import YarnItem from './YarnItem.jsx';
 
 function Yarn() {
     const [allYarn, setAllYarn] = useState([]);
@@ -22,7 +22,7 @@ function Yarn() {
         }
     };
 
-    const handleAddYarn = async (newYarn) => {
+    const handleAddYarn = async (yarn) => {
         try {
             const results = await fetch("/api/yarn", {
                 method: "POST",
@@ -31,7 +31,7 @@ function Yarn() {
                   "Content-Type": "application/json"
                 },
                 // Send the newYarn to the server as a string
-                body: JSON.stringify(newYarn)
+                body: JSON.stringify(yarn)
             });
             // Get the response from the call
             const updatedYarn = await results.json();
@@ -52,7 +52,7 @@ function Yarn() {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <>
@@ -71,16 +71,56 @@ function Yarn() {
             {/* Form */}
             <div className="col-sm-3">
                 <h3 className="text-center pt-3 pb-2">Add Yarn</h3>
-                <YarnForm addYarn={(newYarn) => handleAddYarn(newYarn)}/>
+                <YarnForm addYarn={(yarn) => handleAddYarn(yarn)}/>
             </div>
 
             {/* Main Content */}
             <div className="col-sm-9">
+                {/* Yarn Display */}
                 <h3 className="container-fluid text-center pt-3 pb-2">Your Yarn Stash</h3>
                 {/* Display all yarn*/}
                 <div className="row container">
                     {allYarn.map(item => (
-                        <YarnItem key={item.id} item={item} deleteYarn={deleteYarn}/>
+                        <div key={item.id} className="col-sm-4">
+                            <div className="card bg-dark text-white mb-2">
+                                <div className="card-body pb-0">
+                                    <div className="d-flex justify-content-between">
+                                        <h5 className="card-title yarn-card-title">{item.name}</h5>
+                                        <div>
+                                            <i 
+                                            // Call delete function
+                                            onClick={() => deleteYarn(item.id)}
+                                            role="button" 
+                                            className="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
+                                        <table className="table table-dark table-borderless table-sm">
+                                            <tbody>
+                                                <tr>
+                                                    <td className="card-text category">Brand</td>
+                                                    <td className="card-text">{item.brand}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="card-text category">Weight</td>
+                                                    <td className="card-text">{item.weight}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="card-text category">Yardage</td>
+                                                    <td className="card-text">{item.yardage}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="card-text category">Color</td>
+                                                    <td className="card-text">{item.color}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="card-text category">Fiber</td>
+                                                    <td className="card-text">{item.fiber_type}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>

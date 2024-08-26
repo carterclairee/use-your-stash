@@ -4,6 +4,7 @@ import {Routes, Route, NavLink} from 'react-router-dom';
 import logo from './assets/icons8-yarn-80.png';
 import Home from './components/Home';
 import Yarn from './components/Yarn';
+import MatchPatterns from './components/MatchPatterns';
 import Patterns from './components/Patterns';
 import Page404 from './components/Page404';
 
@@ -62,7 +63,9 @@ function App() {
     {/* Routes */}
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/yarn" element={<Yarn />} />
+      <Route path="/yarn" element={<Yarn />}>
+        <Route path=":id" element={<MatchPatterns />} />
+      </Route>
       <Route path="/patterns" element={<Patterns />} />
       <Route path="*" element={<Page404 />} />
     </Routes>

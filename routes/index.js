@@ -140,12 +140,19 @@ router.post("/yarn", async function(req, res, next) {
     const newYarnId = updatedList.data[0].id;
 
     // Update the junction table so yarns immediately can link to patterns. Update based on matching weights.
+
+    // Check if there are any matching patterns
+    const matchingPatterns = await db(
+        `SELECT id FROM patterns WHERE yarn_weight = "${weight}";`
+    );
+
+    if (matchingPatterns.data.length > 0) {
     await db(
       `INSERT INTO yarn_patterns (yarn_id, pattern_id)
       SELECT ${newYarnId}, id
       FROM patterns 
       WHERE yarn_weight = "${weight}";`
-    );
+    )};
 
     // Send the full, updated list back
     const results = await db(
@@ -156,8 +163,9 @@ router.post("/yarn", async function(req, res, next) {
     res.status(201).send(results.data);
 
   } catch (error) {
+    console.error("Error details:", error);
     res.status(500).send({ error: error.message });
-  }
+}
 });
 
 // POST pattern and update the junction table with matching yarns
@@ -177,13 +185,20 @@ router.post("/patterns", async function(req, res, next) {
 
     const newPatternId = updatedList.data[0].id;
 
-    // Update the junction table based on matching weights
+    // Check if there are any matching yarns
+    const matchingYarn = await db(
+      `SELECT id FROM yarn WHERE weight = "${yarn_weight}";`
+    );
+
+    // Update the junction table based on matching weights IF there are matching yarns
+    if (matchingYarn.data.length > 0) {
     await db(
       `INSERT INTO yarn_patterns (yarn_id, pattern_id)
       SELECT id, ${newPatternId}
       FROM yarn 
       WHERE weight = "${yarn_weight}";`
     );
+    };
 
     // Send the full, updated list back
     const results = await db(

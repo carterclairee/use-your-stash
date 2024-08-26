@@ -27,7 +27,17 @@ function YarnForm({addYarn}) {
 
         // Pass the data back to the parent
         addYarn(yarn); 
-    }
+
+        // Clear the form
+        setYarn({
+            name: "",
+            brand: "",
+            weight: "",
+            yardage: "",
+            color: "",
+            fiber_type: ""
+            });
+    };
 
     return (
         <>
@@ -65,6 +75,7 @@ function YarnForm({addYarn}) {
                     onChange={e => handleInput(e)}
                 >
                 {/* Weight options */}
+                <option value="">Select weight</option>
                 <option value="lace">lace</option>
                 <option value="fingering">fingering</option>
                 <option value="sport">sport</option>
