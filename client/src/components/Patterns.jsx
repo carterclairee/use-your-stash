@@ -25,14 +25,14 @@ function Patterns() {
 
     const handleAddPattern = async (pattern) => {
         try {
-            const results = await fetch("/api/yarn", {
+            const results = await fetch("/api/patterns", {
                 method: "POST",
                 headers: {
                   // specifying that we're communicating in JSON
                   "Content-Type": "application/json"
                 },
                 // Send the newYarn to the server as a string
-                body: JSON.stringify(yarn)
+                body: JSON.stringify(pattern)
             });
             // Get the response from the call
             const updatedYarn = await results.json();
@@ -43,13 +43,13 @@ function Patterns() {
         }
     };
 
-    const deleteYarn = async (id) => {
+    const deletePattern = async (id) => {
         try {
-            const results = await fetch(`/api/yarn/${id}`, {
+            const results = await fetch(`/api/patterns/${id}`, {
                 method: "DELETE"
             });
-            const updatedYarn = await results.json();
-            setAllYarn(updatedYarn);
+            const updatedPatterns = await results.json();
+            setAllPatterns(updatedPatterns);
         } catch (error) {
             console.log(error);
         }
@@ -57,7 +57,7 @@ function Patterns() {
 
 return (
     <>
-        {/* Title section...I think I don't really need this because it's clear it's a yarn page already, so I may revise to just have image*/}
+        {/* Title section...I think I don't really need this because it's clear it's a pattern page already, so I may revise to just have image*/}
         <div className="card border-0">
             <div className="title-image-container">
                 <img src={titleknit} className="title-card card-img title-image" alt="yarn in background" />
@@ -77,45 +77,45 @@ return (
 
             {/* Main Content */}
             <div className="col-sm-9">
-                {/* Yarn Display */}
+                {/* Pattern Display */}
                 <h3 className="container-fluid text-center pt-3 pb-2">Your Pattern Library</h3>
-                {/* Display all yarn*/}
+                {/* Display all patterns*/}
                 <div className="row container">
                     {allPatterns.map(item => (
-                        <Link to={`/yarn/${item.id}`} key={item.id} className="yarn-display col-sm-4">
-                            <div className="card bg-dark text-white mb-2">
+                        <Link to={`/patterns/${item.id}`} key={item.id} className="yarn-display col-sm-4">
+                            <div className="card bg-light mb-2">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">
                                         <h5 className="card-title yarn-card-title">{item.name}</h5>
                                         <div>
                                             <i 
                                             // Call delete function
-                                            onClick={() => deleteYarn(item.id)}
+                                            onClick={() => deletePattern(item.id)}
                                             role="button" 
                                             className="fa-regular fa-trash-can"></i>
                                         </div>
                                     </div>
-                                        <table className="table table-dark table-borderless table-sm">
+                                        <table className="table table-light table-borderless table-sm">
                                             <tbody>
                                                 <tr>
                                                     <td className="card-text category">Brand</td>
                                                     <td className="card-text">{item.brand}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td className="card-text category">Weight</td>
-                                                    <td className="card-text">{item.weight}</td>
+                                                    <td className="card-text category">Project</td>
+                                                    <td className="card-text">{item.project_type}</td>
                                                 </tr>
                                                 <tr>
                                                     <td className="card-text category">Yardage</td>
-                                                    <td className="card-text">{item.yardage}</td>
+                                                    <td className="card-text">{item.yardage_needed}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td className="card-text category">Color</td>
-                                                    <td className="card-text">{item.color}</td>
+                                                    <td className="card-text category">Difficulty</td>
+                                                    <td className="card-text">{item.difficulty}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td className="card-text category">Fiber</td>
-                                                    <td className="card-text">{item.fiber_type}</td>
+                                                    <td className="card-text category">Notes</td>
+                                                    <td className="card-text">{item.notes}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
