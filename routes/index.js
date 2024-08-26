@@ -91,16 +91,20 @@ router.get("/yarn/:id", async function (req, res, next) {
       WHERE y.id = ${req.params.id} AND y.yardage >= p.yardage_needed;` 
     );
 
+    // Get the yarn name to use later if there aren't any matching patterns
     const yarnName = await db (
       `SELECT name FROM yarn WHERE id = ${req.params.id};`
     );
 
+    // If there aren't any matching patterns, send a message and the yarn name
+    // Might change this later to more info about the yarn if it's needed
     if (!results.data.length) {
       return res.send({
         message: "No patterns in the library match this yarn.",
         name: yarnName.data[0].name
       })
-    }
+    };
+
     // Use the treatYarnData function to return more organized data
     const response = treatYarnData(results);
 
@@ -121,6 +125,20 @@ router.get("/patterns/:id", async function (req, res, next) {
       LEFT JOIN yarn AS y ON yp.yarn_id = y.id 
       WHERE p.id = ${req.params.id} AND y.yardage >= p.yardage_needed;` 
     );
+
+    // Get the pattern name to use later if there aren't any matching yarns
+    const patternName = await db (
+      `SELECT name FROM patterns WHERE id = ${req.params.id};`
+    );
+
+    // If there aren't any matching yarns, send a message and the pattern name
+    // Might change this later to more info about the pattern if it's needed
+    if (!results.data.length) {
+      return res.send({
+        message: "No yarn in your stash matches this pattern.",
+        name: patternName.data[0].name
+      })
+    };
 
     // treat the data to return more organized results
     const response = treatPatternsData(results);

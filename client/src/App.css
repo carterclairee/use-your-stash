@@ -42,6 +42,10 @@ h1 {
   font-weight: bold;
 }
 
+.yarn-display {
+  text-decoration: none;
+}
+
 /* YarnItem */
 .skein-icon {
   height: auto;
