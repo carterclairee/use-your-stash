@@ -91,6 +91,16 @@ router.get("/yarn/:id", async function (req, res, next) {
       WHERE y.id = ${req.params.id} AND y.yardage >= p.yardage_needed;` 
     );
 
+    const yarnName = await db (
+      `SELECT name FROM yarn WHERE id = ${req.params.id};`
+    );
+
+    if (!results.data.length) {
+      return res.send({
+        message: "No patterns in the library match this yarn.",
+        name: yarnName.data[0].name
+      })
+    }
     // Use the treatYarnData function to return more organized data
     const response = treatYarnData(results);
 
