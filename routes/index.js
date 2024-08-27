@@ -47,6 +47,7 @@ const treatPatternsData = function(results) {
     pattern_id: p.pattern_id,
     pattern_name: p.pattern_name,
     pattern_brand: p.pattern_brand,
+    yarn_weight: p.yarn_weight,
     project_type: p.project_type,
     yardage_needed: p.yardage_needed,
     notes: p.notes,

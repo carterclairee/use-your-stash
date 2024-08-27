@@ -35,9 +35,9 @@ function Patterns() {
                 body: JSON.stringify(pattern)
             });
             // Get the response from the call
-            const updatedYarn = await results.json();
-            // Set the allYarn state to the new list
-            setAllYarn(updatedYarn);
+            const updatedPatterns = await results.json();
+            // Set the allPatterns state to the new list
+            setAllPatterns(updatedPatterns);
         } catch (error) {
             console.log(error);
         }
@@ -86,7 +86,7 @@ return (
                             <div className="card bg-light mb-2">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">
-                                        <h5 className="card-title yarn-card-title">{item.name}</h5>
+                                        <h5 className="card-title pattern-card-title">{item.name}</h5>
                                         <div>
                                             <i 
                                             // Call delete function

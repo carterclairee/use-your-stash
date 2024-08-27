@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Yarn from './components/Yarn';
 import MatchPatterns from './components/MatchPatterns';
 import Patterns from './components/Patterns';
+import MatchYarn from './components/MatchYarn';
 import Page404 from './components/Page404';
 
 function App() {
@@ -66,7 +67,9 @@ function App() {
       <Route path="/yarn" element={<Yarn />}>
         <Route path=":id" element={<MatchPatterns />} />
       </Route>
-      <Route path="/patterns" element={<Patterns />} />
+      <Route path="/patterns" element={<Patterns />}>
+        <Route path=":id" element={<MatchYarn />} />
+      </Route>
       <Route path="*" element={<Page404 />} />
     </Routes>
     </>

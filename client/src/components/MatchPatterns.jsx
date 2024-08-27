@@ -66,15 +66,15 @@ return (
                 <h4 className="container-fluid text-center pt-3 pb-2">Patterns for {noMatch.name}</h4>
                 <p className="text-center">{noMatch.message}</p>
             </div>
-
-        // Display matching patterns if they exist
+            
+        // Display patterns if they exist
         ) : (
         matchingPatterns.matching_patterns.map((pattern) => (
             <div key={pattern.pattern_id} className="col-sm-4">
                     <div className="card bg-light mb-2">
                         <div className="card-body pb-0">
                             <div className="d-flex justify-content-between">
-                                <h5 className="card-title yarn-card-title">{pattern.pattern_name}</h5>
+                                <h5 className="card-title pattern-card-title">{pattern.pattern_name}</h5>
                             </div>
                                 <table className="table table-light table-borderless table-sm">
                                     <tbody>

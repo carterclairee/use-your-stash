@@ -19,7 +19,7 @@ function PatternForm({addPattern}) {
     const name = e.target.name;
 
     // Set the input
-    setYarn(state => ({...state, [name]: value}));
+    setPattern(state => ({...state, [name]: value}));
     };
 
     // Submit the form and get the input
