@@ -82,7 +82,7 @@ function Yarn() {
                 <div className="row container">
                     {allYarn.map(item => (
                         <Link to={`/yarn/${item.id}`} key={item.id} className="yarn-display col-sm-4">
-                            <div className="card bg-dark text-white mb-2">
+                            <div className="card bg-dark text-white mb-3">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">
                                         <h5 className="card-title yarn-card-title">{item.name}</h5>

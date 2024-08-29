@@ -83,7 +83,7 @@ return (
                 <div className="row container">
                     {allPatterns.map(item => (
                         <Link to={`/patterns/${item.id}`} key={item.id} className="yarn-display col-sm-4">
-                            <div className="card bg-light mb-2">
+                            <div className="card bg-light mb-3">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">
                                         <h5 className="card-title pattern-card-title">{item.name}</h5>

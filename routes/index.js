@@ -60,7 +60,7 @@ const treatPatternsData = function(results) {
 router.get("/yarn", async function (req, res, next) {
   try {
     const results = await db (
-      "SELECT * FROM yarn ORDER BY name ASC;"
+      "SELECT * FROM yarn ORDER BY id ASC;"
     );
     res.send(results.data);
   } catch (error) {
@@ -72,7 +72,7 @@ router.get("/yarn", async function (req, res, next) {
 router.get("/patterns", async function (req, res, next) {
   try {
     const results = await db (
-      "SELECT * FROM patterns ORDER BY name ASC;"
+      "SELECT * FROM patterns ORDER BY id ASC;"
     );
     res.send(results.data);
   } catch (error) {
@@ -185,7 +185,7 @@ router.post("/yarn", async function(req, res, next) {
 
     // Send the full, updated list back
     const results = await db(
-      "SELECT * FROM yarn ORDER BY name ASC;"
+      "SELECT * FROM yarn ORDER BY id ASC;"
     );
 
     // 201 message to show it was created
@@ -231,7 +231,7 @@ router.post("/patterns", async function(req, res, next) {
 
     // Send the full, updated list back
     const results = await db(
-      "SELECT * FROM patterns ORDER BY name ASC;"
+      "SELECT * FROM patterns ORDER BY id ASC;"
     );
 
     // 201 message to show it was created
@@ -258,7 +258,7 @@ router.delete("/yarn/:id", async function (req, res, next) {
     // Now delete from the yarn table
     await db(`DELETE from yarn WHERE id = ${id};`);
     // Send updated list back
-    const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
+    const results = await db("SELECT * FROM yarn ORDER BY id ASC;"
     );
     res.send(results.data);
   } catch (error) {
@@ -282,7 +282,7 @@ router.delete("/patterns/:id", async function (req, res, next) {
     // Now delete from the pattern table
     await db(`DELETE from patterns WHERE id = ${id};`);
     // Send updated list back
-    const results = await db("SELECT * FROM patterns ORDER BY name ASC;"
+    const results = await db("SELECT * FROM patterns ORDER BY id ASC;"
     );
     res.send(results.data);
   } catch (error) {
@@ -313,14 +313,17 @@ router.delete("/patterns/:id", async function (req, res, next) {
 //         WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
 //     );
 
-//     // Add patterns only if there are some that need to be added
+//     // Add patterns to yarn_patterns only if there are some that need to be added 
 //     if (patternsToAdd.data.length > 0) {
 //       await db(
 //         `INSERT INTO yarn_patterns (yarn_id, pattern_id)
 //         SELECT ${id}, p.id
 //         FROM patterns AS p
 //         WHERE p.yardage_needed <= 
-//           (SELECT yardage FROM yarn WHERE id = ${id})
+//           (SELECT yardage FROM yarn WHERE id = ${id}) 
+//           AND
+//           p.yarn_weight = 
+//           (SELECT weight FROM yarn WHERE id = ${id})
 //         AND NOT EXISTS (
 //           SELECT 1 FROM yarn_patterns AS yp
 //           WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
@@ -344,7 +347,7 @@ router.delete("/patterns/:id", async function (req, res, next) {
 //     };
     
 //     // Send updated list of yarns back
-//     const results = await db("SELECT * FROM yarn ORDER BY name ASC;"
+//     const results = await db("SELECT * FROM yarn ORDER BY id ASC;"
 //     );
 //     res.send(results.data);
 //   } catch (error) {

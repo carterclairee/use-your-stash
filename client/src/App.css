@@ -65,3 +65,15 @@ h1 {
 .pattern-card-title {
   color: darkslateblue;
 }
+
+.card {
+  --bs-card-border-width: 0;
+}
+
+.table {
+  margin-bottom: .75rem;
+}
+
+.table-sm>:not(caption)>*>* {
+  padding: .15rem .25rem;
+}
