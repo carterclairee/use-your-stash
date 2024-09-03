@@ -57,14 +57,9 @@ function Patterns() {
 
 return (
     <>
-        {/* Title section...I think I don't really need this because it's clear it's a pattern page already, so I may revise to just have image*/}
-        <div className="card border-0">
-            <div className="title-image-container">
-                <img src={titleknit} className="title-card card-img title-image" alt="yarn in background" />
-            </div>
-            <div className="card-img-overlay">
-                {/* <h2 className="card-title text-center title-text">Yarn</h2> */}
-            </div>
+        {/* Title image*/}
+        <div className="title-image-container">
+            <img src={titleknit} className="title-image" alt="knit in background" />
         </div>
 
         {/* Grid for overall layout */}
@@ -105,6 +100,12 @@ return (
                                                     <td className="card-text category">Project</td>
                                                     <td className="card-text">{item.project_type}</td>
                                                 </tr>
+
+                                                <tr>
+                                                    <td className="card-text category">Weight</td>
+                                                    <td className="card-text">{item.yarn_weight}</td>
+                                                </tr>
+
                                                 <tr>
                                                     <td className="card-text category">Yardage</td>
                                                     <td className="card-text">{item.yardage_needed}</td>

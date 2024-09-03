@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 
 function YarnForm({addYarn}) {
     // State for user input
@@ -41,6 +42,15 @@ function YarnForm({addYarn}) {
 
     return (
         <>
+        {/* Title section*/}
+        <div className="title-image-container">
+            <img src={titleyarn} className="title-image" alt="yarn in background" />
+        </div>
+
+        <div className="container">
+
+        <h3 className="container-fluid text-center pt-3 pb-2">Add Yarn to Your Stash</h3>
+
         <form onSubmit={handleSubmit}>
             <div className="form-floating ms-3">
                 {/* Name */}
@@ -126,6 +136,8 @@ function YarnForm({addYarn}) {
             </div>
         
         </form>
+
+        </div>
         </>
     )
 } 

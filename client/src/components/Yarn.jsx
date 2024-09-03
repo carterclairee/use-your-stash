@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
-import YarnForm from './YarnForm.jsx';
 
 function Yarn() {
     const [allYarn, setAllYarn] = useState([]);
@@ -56,23 +55,18 @@ function Yarn() {
 
     return (
         <>
-        {/* Title section...I think I don't really need this because it's clear it's a yarn page already, so I may revise to just have image*/}
-        <div className="card border-0">
-            <div className="title-image-container">
-                <img src={titleyarn} className="title-card card-img title-image" alt="yarn in background" />
-            </div>
-            <div className="card-img-overlay">
-                {/* <h2 className="card-title text-center title-text">Yarn</h2> */}
-            </div>
+        {/* Title section*/}
+        <div className="title-image-container">
+            <img src={titleyarn} className="title-image" alt="yarn in background" />
+        </div>
+
+        {/* Switch to YarnForm view */}
+        <div className="float-end m-3">
+            <Link to="/add_yarn">Add Yarn</Link>
         </div>
 
         {/* Grid for overall layout */}
         <div className="row">
-            {/* Form */}
-            <div className="col-sm-3">
-                <h3 className="text-center pt-3 pb-2">Add Yarn</h3>
-                <YarnForm addYarn={(yarn) => handleAddYarn(yarn)}/>
-            </div>
 
             {/* Main Content */}
             <div className="col-sm-9">

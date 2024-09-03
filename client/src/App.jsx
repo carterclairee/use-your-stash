@@ -8,6 +8,8 @@ import MatchPatterns from './components/MatchPatterns';
 import Patterns from './components/Patterns';
 import MatchYarn from './components/MatchYarn';
 import Page404 from './components/Page404';
+import YarnForm from './components/YarnForm';
+import PatternForm from './components/PatternForm';
 
 function App() {
 
@@ -67,9 +69,11 @@ function App() {
       <Route path="/yarn" element={<Yarn />}>
         <Route path=":id" element={<MatchPatterns />} />
       </Route>
+      <Route path="/add_yarn" element={<YarnForm />} />
       <Route path="/patterns" element={<Patterns />}>
         <Route path=":id" element={<MatchYarn />} />
       </Route>
+      <Route path="/add_pattern" element={<PatternForm />} />
       <Route path="*" element={<Page404 />} />
     </Routes>
     </>
