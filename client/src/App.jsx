@@ -12,6 +12,27 @@ import YarnForm from './components/YarnForm';
 import PatternForm from './components/PatternForm';
 
 function App() {
+  const [allYarn, setAllYarn] = useState([]);
+
+  const handleAddYarn = async (yarn) => {
+    try {
+        const results = await fetch("/api/yarn", {
+            method: "POST",
+            headers: {
+              // specifying that we're communicating in JSON
+              "Content-Type": "application/json"
+            },
+            // Send the newYarn to the server as a string
+            body: JSON.stringify(yarn)
+        });
+        // Get the response from the call
+        const updatedYarn = await results.json();
+        // Set the allYarn state to the new list
+        setAllYarn(updatedYarn);
+    } catch (error) {
+        console.log(error);
+    }
+  };
 
   return (
     <>
@@ -66,10 +87,12 @@ function App() {
     {/* Routes */}
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/yarn" element={<Yarn />}>
+      {/* Pass allYarn and setAllYarn to Yarn.jsx */}
+      <Route path="/yarn/" element={<Yarn allYarn={allYarn} setAllYarn={setAllYarn}/>}>
         <Route path=":id" element={<MatchPatterns />} />
       </Route>
-      <Route path="/add_yarn" element={<YarnForm />} />
+      {/* Pass handleAddYarn to YarnForm */}
+      <Route path="/add_yarn" element={<YarnForm handleAddYarn={handleAddYarn}/>} />
       <Route path="/patterns" element={<Patterns />}>
         <Route path=":id" element={<MatchYarn />} />
       </Route>

@@ -21,6 +21,13 @@ h1 {
   color: white;
 }
 
+.form-link {
+  text-decoration: none;
+  font-size: large;
+  font-weight: bold;
+  color: black;
+}
+
 /* Yarn.css */
 .title-image-container {
   height: 50px; /* image height */

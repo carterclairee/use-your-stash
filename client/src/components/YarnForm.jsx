@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from 'react';
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
+// Using useNavigate, a hook that can take you to a different path in the app, to navigate between Yarn.js and YarnForm.js.
+import { useNavigate } from 'react-router-dom';
 
-function YarnForm({addYarn}) {
+function YarnForm({handleAddYarn}) {
     // State for user input
     const [yarn, setYarn] = useState({
     name: "",
@@ -12,6 +14,8 @@ function YarnForm({addYarn}) {
     color: "",
     fiber_type: ""
     });
+
+    const navigate = useNavigate();
 
     // Grab input from the form
     const handleInput = e => {
@@ -23,21 +27,12 @@ function YarnForm({addYarn}) {
     };
 
     // Submit the form and get the input
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Pass the data back to the parent
-        addYarn(yarn); 
-
-        // Clear the form
-        setYarn({
-            name: "",
-            brand: "",
-            weight: "",
-            yardage: "",
-            color: "",
-            fiber_type: ""
-            });
+        // Call handleAddYarn from Yarn.js
+        handleAddYarn(yarn); 
+        // Go back to yarn view after form submission
+        navigate('/yarn')
     };
 
     return (

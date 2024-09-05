@@ -151,7 +151,7 @@ router.get("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// POST yarn and update the junction table. I decided to update the yarn_pattern table at the same time as posting so that the matching patterns would be immediately available, but I'm not sure if this is the most efficient method.
+// POST yarn and update the junction table. I decided to update the yarn_pattern table at the same time as posting so that the matching patterns would be immediately available
 router.post("/yarn", async function(req, res, next) {
   const {name, brand, weight, yardage, color, fiber_type} = req.body;
 
@@ -290,7 +290,7 @@ router.delete("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// I'd like to use the PUTs below, but I'm having a hard time getting the yarn yardage one to work. The UPDATE works if the DELETE is commented out, and vice versa, but they don't work at the same time. I spent too much time trying to get them to work, so I'm just going to move on to the front end and figure them out someday.
+// This will be a feature for later. Not currently working.
 
 // // PUT a new yardage to yarn; don't want user to change anything other than yardage
 // router.put("/yarn/:id", async function (req, res, next) {

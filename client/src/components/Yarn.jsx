@@ -1,10 +1,9 @@
 import React from "react";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 
-function Yarn() {
-    const [allYarn, setAllYarn] = useState([]);
+function Yarn({ allYarn, setAllYarn }) {
 
     useEffect(() => {
         getYarn();
@@ -16,26 +15,6 @@ function Yarn() {
             const results = await fetch('api/yarn');
             const json = await results.json();
             setAllYarn(json);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleAddYarn = async (yarn) => {
-        try {
-            const results = await fetch("/api/yarn", {
-                method: "POST",
-                headers: {
-                  // specifying that we're communicating in JSON
-                  "Content-Type": "application/json"
-                },
-                // Send the newYarn to the server as a string
-                body: JSON.stringify(yarn)
-            });
-            // Get the response from the call
-            const updatedYarn = await results.json();
-            // Set the allYarn state to the new list
-            setAllYarn(updatedYarn);
         } catch (error) {
             console.log(error);
         }
@@ -61,15 +40,15 @@ function Yarn() {
         </div>
 
         {/* Switch to YarnForm view */}
-        <div className="float-end m-3">
-            <Link to="/add_yarn">Add Yarn</Link>
+        <div className="ms-3 mt-3">
+            <Link to="/add_yarn" className="form-link">Add Yarn</Link>
         </div>
 
         {/* Grid for overall layout */}
         <div className="row">
 
             {/* Main Content */}
-            <div className="col-sm-9">
+            <div className="col-sm-8 ms-2">
                 {/* Yarn Display */}
                 <h3 className="container-fluid text-center pt-3 pb-2">Your Yarn Stash</h3>
                 {/* Display all yarn*/}
@@ -117,12 +96,13 @@ function Yarn() {
                         </Link>
                     ))}
                 </div>
-                <Outlet />
+            </div>
+            <div className="col-sm-3">
+                <Outlet /> 
             </div>
         </div>
-
         </>
-        )
+    );
 }
 
 export default Yarn

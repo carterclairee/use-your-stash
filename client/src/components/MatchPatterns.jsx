@@ -56,22 +56,21 @@ return (
     <>
     {/* Display yarn name only if pattern(s) match */}
     {!noMatch && (
-    <h4 className="container-fluid text-center pt-3 pb-2">Patterns for {matchingPatterns.yarn_name}</h4>
+    <h3 className="container-fluid text-center pt-3 pb-2">Patterns for {matchingPatterns.yarn_name}</h3>
     )}
 
-    <div className="row container">
         {/* Display message if no patterns match */}
         {noMatch ? (
             <div>
-                <h4 className="container-fluid text-center pt-3 pb-2">Patterns for {noMatch.name}</h4>
+                <h3 className="container-fluid text-center pt-3 pb-2">Patterns for {noMatch.name}</h3>
                 <p className="text-center">{noMatch.message}</p>
             </div>
             
         // Display patterns if they exist
         ) : (
         matchingPatterns.matching_patterns.map((pattern) => (
-            <div key={pattern.pattern_id} className="col-sm-4">
-                    <div className="card bg-light mb-2">
+            <div key={pattern.pattern_id}>
+                    <div className="card bg-light mb-3">
                         <div className="card-body pb-0">
                             <div className="d-flex justify-content-between">
                                 <h5 className="card-title pattern-card-title">{pattern.pattern_name}</h5>
@@ -108,7 +107,6 @@ return (
                 </div>
         ))
         )}
-    </div>
     </>
 );
 }
