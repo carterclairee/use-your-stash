@@ -246,16 +246,6 @@ router.post("/patterns", async function(req, res, next) {
 router.delete("/yarn/:id", async function (req, res, next) {
   const {id} = req.params;
   try {
-    // Need to first delete yarn from the junction table
-    // Check if the yarn exists in the junction table
-    const yarnExists = await db(`SELECT yarn_id FROM yarn_patterns WHERE yarn_id = ${id};`);
-
-    // If it exists, delete records
-    if (yarnExists.data.length) {
-      await db(`DELETE from yarn_patterns WHERE yarn_id = ${id};`);
-    }
-
-    // Now delete from the yarn table
     await db(`DELETE from yarn WHERE id = ${id};`);
     // Send updated list back
     const results = await db("SELECT * FROM yarn ORDER BY id ASC;"
@@ -270,16 +260,6 @@ router.delete("/yarn/:id", async function (req, res, next) {
 router.delete("/patterns/:id", async function (req, res, next) {
   const {id} = req.params;
   try {
-    // Need to first delete from the junction table
-    // Check if the pattern exists in the junction table
-    const patternExists = await db(`SELECT pattern_id FROM yarn_patterns WHERE pattern_id = ${id};`);
-
-    // If it exists, delete records
-    if (patternExists.data.length) {
-      await db(`DELETE from yarn_patterns WHERE pattern_id = ${id};`);
-    }
-
-    // Now delete from the pattern table
     await db(`DELETE from patterns WHERE id = ${id};`);
     // Send updated list back
     const results = await db("SELECT * FROM patterns ORDER BY id ASC;"

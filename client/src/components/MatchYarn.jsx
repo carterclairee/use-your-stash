@@ -54,10 +54,8 @@ return (
     <>
     {/* Display pattern name only if yarn matches */}
     {!noMatch && (
-    <h4 className="container-fluid text-center pt-3 pb-2">Yarn for {matchingYarn.pattern_name}</h4>
+    <h3 className="container-fluid text-center pt-3 pb-2">Yarn for {matchingYarn.pattern_name}</h3>
     )}
-
-    <div className="row container">
         {/* Display message if no yarn matches */}
         {noMatch ? (
             <div>
@@ -68,7 +66,7 @@ return (
         // Display matching yarns if they exist
         ) : (
         matchingYarn.matching_yarn.map((yarn) => (
-            <div key={yarn.yarn_id} className="col-sm-4">
+            <div key={yarn.yarn_id}>
                     <div className="card bg-dark text-white mb-2">
                         <div className="card-body pb-0">
                             <div className="d-flex justify-content-between">
@@ -102,7 +100,6 @@ return (
                 </div>
         ))
         )}
-    </div>
     </>
 );
 }

@@ -46,9 +46,8 @@ function Yarn({ allYarn, setAllYarn }) {
 
         {/* Grid for overall layout */}
         <div className="row">
-
             {/* Main Content */}
-            <div className="col-sm-8 ms-2">
+            <div className="col-md-8 ms-2">
                 {/* Yarn Display */}
                 <h3 className="container-fluid text-center pt-3 pb-2">Your Yarn Stash</h3>
                 {/* Display all yarn*/}
@@ -97,7 +96,7 @@ function Yarn({ allYarn, setAllYarn }) {
                     ))}
                 </div>
             </div>
-            <div className="col-sm-3">
+            <div className="col-md-3">
                 <Outlet /> 
             </div>
         </div>

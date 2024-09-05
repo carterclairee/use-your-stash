@@ -13,6 +13,7 @@ import PatternForm from './components/PatternForm';
 
 function App() {
   const [allYarn, setAllYarn] = useState([]);
+  const [allPatterns, setAllPatterns] = useState([]);
 
   const handleAddYarn = async (yarn) => {
     try {
@@ -33,6 +34,26 @@ function App() {
         console.log(error);
     }
   };
+
+  const handleAddPattern = async (pattern) => {
+    try {
+        const results = await fetch("/api/patterns", {
+            method: "POST",
+            headers: {
+              // specifying that we're communicating in JSON
+              "Content-Type": "application/json"
+            },
+            // Send the newYarn to the server as a string
+            body: JSON.stringify(pattern)
+        });
+        // Get the response from the call
+        const updatedPatterns = await results.json();
+        // Set the allPatterns state to the new list
+        setAllPatterns(updatedPatterns);
+    } catch (error) {
+        console.log(error);
+    }
+};
 
   return (
     <>
@@ -87,16 +108,23 @@ function App() {
     {/* Routes */}
     <Routes>
       <Route path="/" element={<Home />} />
+
       {/* Pass allYarn and setAllYarn to Yarn.jsx */}
       <Route path="/yarn/" element={<Yarn allYarn={allYarn} setAllYarn={setAllYarn}/>}>
         <Route path=":id" element={<MatchPatterns />} />
       </Route>
+
       {/* Pass handleAddYarn to YarnForm */}
       <Route path="/add_yarn" element={<YarnForm handleAddYarn={handleAddYarn}/>} />
-      <Route path="/patterns" element={<Patterns />}>
+
+      {/* Pass allPatterns to Patterns.jsx */}
+      <Route path="/patterns" element={<Patterns allPatterns={allPatterns} setAllPatterns={setAllPatterns}/>}>
         <Route path=":id" element={<MatchYarn />} />
       </Route>
-      <Route path="/add_pattern" element={<PatternForm />} />
+
+      {/* Pass handleAddPattern to PatternForm */}
+      <Route path="/add_pattern" element={<PatternForm handleAddPattern={handleAddPattern}/>} />
+      
       <Route path="*" element={<Page404 />} />
     </Routes>
     </>

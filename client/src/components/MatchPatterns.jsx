@@ -58,7 +58,6 @@ return (
     {!noMatch && (
     <h3 className="container-fluid text-center pt-3 pb-2">Patterns for {matchingPatterns.yarn_name}</h3>
     )}
-
         {/* Display message if no patterns match */}
         {noMatch ? (
             <div>
