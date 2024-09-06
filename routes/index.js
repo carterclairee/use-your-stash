@@ -250,6 +250,7 @@ router.delete("/yarn/:id", async function (req, res, next) {
     // Send updated list back
     const results = await db("SELECT * FROM yarn ORDER BY id ASC;"
     );
+    
     res.send(results.data);
   } catch (error) {
     res.status(500).send({ error: error.message });

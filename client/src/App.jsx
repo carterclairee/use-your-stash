@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import {Routes, Route, NavLink} from 'react-router-dom';
 import logo from './assets/icons8-yarn-80.png';

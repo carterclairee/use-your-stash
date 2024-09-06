@@ -53,7 +53,7 @@ function Yarn({ allYarn, setAllYarn }) {
                 {/* Display all yarn*/}
                 <div className="row container">
                     {allYarn.map(item => (
-                        <Link to={`/yarn/${item.id}`} key={item.id} className="yarn-display col-sm-4">
+                        <Link to={`/yarn/${item.id}`} key={item.id} className="yarn-display col-md-4">
                             <div className="card bg-dark text-white mb-3">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">
@@ -96,6 +96,7 @@ function Yarn({ allYarn, setAllYarn }) {
                     ))}
                 </div>
             </div>
+            {/* Show matching patterns */}
             <div className="col-md-3">
                 <Outlet /> 
             </div>

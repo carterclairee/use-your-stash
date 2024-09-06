@@ -27,7 +27,7 @@ function YarnForm({handleAddYarn}) {
     };
 
     // Submit the form and get the input
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         // Call handleAddYarn from Yarn.js
         handleAddYarn(yarn); 
