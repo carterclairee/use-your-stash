@@ -2,7 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function MatchYarn() {
+function MatchYarn({ allPatterns, selectedPatternId }) {
+// Check if there is a pattern selected show message if not
+if (!selectedPatternId) {
+    return <p className="text-center">Pattern has been deleted. Please select another pattern to see matching yarn.</p>
+}
+
 const [matchingYarn, setMatchingYarn] = useState({
     pattern_id: "",
     pattern_name: "",
@@ -28,6 +33,13 @@ const [noMatch, setNoMatch] = useState("")
 const {id} = useParams();
 
 const matchYarn = async () => {
+    // Check if the pattern still exists (in case of deletion). If it doesn't exist, clear the state
+    if (!selectedPatternId || selectedPatternId !== parseInt(id)) {
+        setMatchingYarn({...matchingYarn, matching_yarn: [] });
+        setNoMatch("Pattern has been deleted. Please select another pattern to see matching yarn.");
+        return;
+    }
+
     try {
         const results = await fetch (`/api/patterns/${id}`);
         const yarn = await results.json();
@@ -48,7 +60,7 @@ const matchYarn = async () => {
 
 useEffect(() => {
     matchYarn();
-}, [id]);
+}, [id, allPatterns]);
 
 return (
     <>

@@ -14,6 +14,9 @@ import PatternForm from './components/PatternForm';
 function App() {
   const [allYarn, setAllYarn] = useState([]);
   const [allPatterns, setAllPatterns] = useState([]);
+  // State to track selected id so we can use this information to set up a yarn or pattern deleted message in MatchPatterns.jsx or MatchYarn.jsx
+  const [selectedYarnId, setSelectedYarnId] = useState(null);
+  const [selectedPatternId, setSelectedPatternId] = useState(null);
 
   const handleAddYarn = async (yarn) => {
     try {
@@ -109,20 +112,19 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
 
-      {/* Pass allYarn and setAllYarn to Yarn.jsx */}
-      <Route path="/yarn/" element={<Yarn allYarn={allYarn} setAllYarn={setAllYarn}/>}>
-        <Route path=":id" element={<MatchPatterns />} />
+      {/* Pass allYarn, setAllYarn, setSelectedYarnId to Yarn.jsx */}
+      <Route path="/yarn/" element={<Yarn allYarn={allYarn} setAllYarn={setAllYarn} setSelectedYarnId={setSelectedYarnId}/>}>
+        {/* Pass selectedYarnId and allYarn to MatchPatterns */}
+        <Route path=":id" element={<MatchPatterns selectedYarnId={selectedYarnId} allYarn={allYarn} />} />
       </Route>
 
       {/* Pass handleAddYarn to YarnForm */}
       <Route path="/add_yarn" element={<YarnForm handleAddYarn={handleAddYarn}/>} />
 
-      {/* Pass allPatterns to Patterns.jsx */}
-      <Route path="/patterns" element={<Patterns allPatterns={allPatterns} setAllPatterns={setAllPatterns}/>}>
-        <Route path=":id" element={<MatchYarn />} />
+      <Route path="/patterns" element={<Patterns allPatterns={allPatterns} setAllPatterns={setAllPatterns} setSelectedPatternId={setSelectedPatternId}/>}>
+        <Route path=":id" element={<MatchYarn selectedPatternId={selectedPatternId} allPatterns={allPatterns} />} />
       </Route>
 
-      {/* Pass handleAddPattern to PatternForm */}
       <Route path="/add_pattern" element={<PatternForm handleAddPattern={handleAddPattern}/>} />
       
       <Route path="*" element={<Page404 />} />

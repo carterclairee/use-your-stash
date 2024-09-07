@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import titleknit from '../assets/giulia-bertelli-hdX0nbZ3HSI-unsplash.jpg';
 
-function Patterns({ allPatterns, setAllPatterns }) {
+function Patterns({ allPatterns, setAllPatterns, setSelectedPatternId }) {
 
     useEffect(() => {
         getPatterns();
@@ -27,6 +27,7 @@ function Patterns({ allPatterns, setAllPatterns }) {
             });
             const updatedPatterns = await results.json();
             setAllPatterns(updatedPatterns);
+            setSelectedPatternId(null);
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +54,10 @@ return (
                 {/* Display all patterns*/}
                 <div className="row container">
                     {allPatterns.map(item => (
-                        <Link to={`/patterns/${item.id}`} key={item.id} className="yarn-display col-md-4">
+                        <Link to={`/patterns/${item.id}`} 
+                        key={item.id} 
+                        onClick={() => setSelectedPatternId(item.id)}
+                        className="yarn-display col-md-4">
                             <div className="card bg-light mb-3">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">

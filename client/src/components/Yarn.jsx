@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { Link, Outlet } from "react-router-dom";
 import titleyarn from '../assets/anastasia-sogomonian-f1vPjvlE9Xs-unsplash.jpg';
 
-function Yarn({ allYarn, setAllYarn }) {
+function Yarn({ allYarn, setAllYarn, setSelectedYarnId }) {
 
+    // Refresh every time we get the list of yarn
     useEffect(() => {
         getYarn();
     }, []);
 
-    // Get yarn from the database
     const getYarn = async () => {
         try {
             const results = await fetch('api/yarn');
@@ -27,6 +27,8 @@ function Yarn({ allYarn, setAllYarn }) {
             });
             const updatedYarn = await results.json();
             setAllYarn(updatedYarn);
+            // Reset the selected yarn when the yarn is deleted so we don't get an error in MatchPatterns when a yarn deleted
+            setSelectedYarnId(null);
         } catch (error) {
             console.log(error);
         }
@@ -53,7 +55,11 @@ function Yarn({ allYarn, setAllYarn }) {
                 {/* Display all yarn*/}
                 <div className="row container">
                     {allYarn.map(item => (
-                        <Link to={`/yarn/${item.id}`} key={item.id} className="yarn-display col-md-4">
+                        // setSelectedYarnId to the clicked id
+                        <Link to={`/yarn/${item.id}`} 
+                        key={item.id} 
+                        onClick={() => setSelectedYarnId(item.id)}
+                        className="yarn-display col-md-4">
                             <div className="card bg-dark text-white mb-3">
                                 <div className="card-body pb-0">
                                     <div className="d-flex justify-content-between">

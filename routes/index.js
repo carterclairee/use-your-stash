@@ -83,6 +83,13 @@ router.get("/patterns", async function (req, res, next) {
 // GET a particular yarn and its matching patterns
 router.get("/yarn/:id", async function (req, res, next) {
   try {
+    // Check if yarn exists
+    const yarnExists = await db(`SELECT name FROM yarn WHERE id = ${req.params.id};`)
+
+    if (yarnExists.data.length === 0) {
+      return res.status(404).send({message: "Yarn not found."});
+    };
+
     const results = await db (
       `SELECT yp.yarn_id, y.name AS yarn_name, y.brand AS yarn_brand, y.weight, y.yardage, y.color, y.fiber_type,
       yp.pattern_id, p.name AS pattern_name, p.brand AS pattern_brand, p.project_type, p.yardage_needed, p.notes, p.difficulty   
@@ -119,6 +126,13 @@ router.get("/yarn/:id", async function (req, res, next) {
 // GET a particular pattern and its matching yarns
 router.get("/patterns/:id", async function (req, res, next) {
   try {
+    // Check if pattern exists
+    const patternExists = await db(`SELECT name FROM patterns WHERE id = ${req.params.id};`)
+
+    if (patternExists.data.length === 0) {
+      return res.status(404).send({message: "Pattern not found."});
+    };
+    
     const results = await db (
       `SELECT yp.pattern_id, p.name AS pattern_name, p.brand AS pattern_brand, p.project_type, p.yardage_needed, p.yarn_weight, p.notes, p.difficulty, yp.yarn_id, y.name AS yarn_name, y.brand AS yarn_brand, y.yardage, y.color, y.fiber_type   
       FROM patterns AS p 

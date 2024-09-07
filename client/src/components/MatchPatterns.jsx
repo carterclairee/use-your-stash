@@ -2,7 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-function MatchPatterns() {
+function MatchPatterns({ allYarn, selectedYarnId }) {
+// Check if there is a yarn seleted, and, if not, show message
+if (!selectedYarnId) {
+    return <p className="text-center">Yarn has been deleted. Please select another yarn to see matching patterns.</p>
+}
+
 const [matchingPatterns, setMatchingPatterns] = useState({
     yarn_id: "",
     yarn_name: "",
@@ -29,6 +34,13 @@ const [noMatch, setNoMatch] = useState("")
 const {id} = useParams();
 
 const matchPatterns = async () => {
+    // Check if the yarn still exists (in case of deletion). If the yarn doesn't exist, clear the state
+    if (!selectedYarnId || selectedYarnId !== parseInt(id)) {
+        setMatchingPatterns({...matchingPatterns, matching_patterns: [] });
+        setNoMatch("Yarn has been deleted. Please select another yarn to see matching patterns.");
+        return;
+    }
+
     try {
         const results = await fetch (`/api/yarn/${id}`);
         const patterns = await results.json();
@@ -42,15 +54,16 @@ const matchPatterns = async () => {
             setMatchingPatterns({ ...matchingPatterns, matching_patterns: [] });
             setNoMatch(patterns);
         }
-
+    // Future feature: figure out how to remove console error when yarn is deleted after being selected
     } catch (error) {
         console.log(error);
     }
-};
+}
 
 useEffect(() => {
     matchPatterns();
-}, [id]);
+}, [id, allYarn]); 
+// need to rerun when allYarn changes (as in when a yarn is deleted)
 
 return (
     <>
