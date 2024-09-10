@@ -71,7 +71,7 @@ return (
         {/* Display message if no yarn matches */}
         {noMatch ? (
             <div>
-                <h4 className="container-fluid text-center pt-3 pb-2">Yarn for {noMatch.name}</h4>
+                <h3 className="container-fluid text-center pt-3 pb-2">Yarn for {noMatch.name}</h3>
                 <p className="text-center">{noMatch.message}</p>
             </div>
 
