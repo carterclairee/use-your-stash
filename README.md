@@ -13,7 +13,7 @@ This is an app designed to display yarn and patterns. When a yarn is clicked on,
 
 - Access the MySQL interface in your terminal by running `mysql -u root -p` or by searching for the MySQL Command Line Client on your Windows searchbar.
 - Create a new database called use_your_stash: `create database use_your_stash;`
-- Edit the `.env` file in the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
+- Create an `.env` file in the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
 ```bash
   DB_HOST=localhost

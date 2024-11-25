@@ -285,7 +285,7 @@ router.delete("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// This will be a feature for later. Not currently working.
+// This will be a feature for later. Not currently working. Not updated since changing junction table to CASCADE ON DELETE.
 
 // // PUT a new yardage to yarn; don't want user to change anything other than yardage
 // router.put("/yarn/:id", async function (req, res, next) {
@@ -355,7 +355,6 @@ router.delete("/patterns/:id", async function (req, res, next) {
 //   const {id} = req.params;
 //   const {notes} = req.body;
 
-//   // This is more of a patch instead of a put, but I'm not as familiar with that one so I will maybe refactor later when I have time
 //   try {
 //     await db(`UPDATE patterns SET notes = "${notes}" WHERE id = "${id}";`);
     
