@@ -1,32 +1,91 @@
-# Use Your Stash Full Stack App
+# Use Your Stash
+Use Your Stash is a full stack app that lets users keep track of crafting materials and patterns, and allows matching between the two to make the most of what users already have.
 
-This is an app designed to display yarn and patterns. When a yarn is clicked on, patterns will be matched based on yarn weight and yardage, and will populate to the right. When a pattern is clicked on, matching yarn will display to the right. Yarn and patterns can be added by clicking a link at the top left of each respective page, which will take the user to a form page.
+## Table of Contents
 
-## Setup
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Techologies Used](#technologies-used)
+4. [Installation](#installation)
+5. [My Contributions](#my-contributions)
+6. [Screenshots](#screenshots)
+7. [Future Features](#future-features)
+8. [License](#license)
 
-### Dependencies
+## Overview
+Use Your Stash lets users keep track of their yarn stash and fiber arts patterns. They can match yarns in their collection to patterns, and vice versa. Using yarn and patterns they already have can reduce crafting waste, and also save users money on yarn purchases. I built Use Your Stash to help keep track of my own yarn stash. It's a full stack app that is particularly interesting on the back end, where a many-to-many relationship between yarn and patterns in the database made for some more complex endpoints as I was learning Express.
 
-- Run `npm install` in project directory. This will install server-related dependencies such as `express`.
-- `cd client` and run `npm install`. This will install client dependencies (React).
+## Features
+- Store and access yarn information
+- Store and access pattern information
+- Match yarn by weight and yardage to patterns
+- Match a pattern by weight and yardage to yarn
 
-### Database Prep
+## Technologies Used
+- Front end: React, CSS, Bootstrap
+- Back end: Node.js, Express
+- Database: MySQL
+- Other tools: Git, GitHub, Postman, Vite
 
-- Access the MySQL interface in your terminal by running `mysql -u root -p` or by searching for the MySQL Command Line Client on your Windows searchbar.
-- Create a new database called use_your_stash: `create database use_your_stash;`
-- Create an `.env` file in the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
+## Installation
+1. Clone the repository:  
+  `git clone https://github.com/your-username/use-your-stash`
 
-```bash
-  DB_HOST=localhost
-  DB_USER=root
-  DB_NAME=use_your_stash
-  DB_PASS=YOURPASSWORD
-```
+2. Navigate to the project directory:  
+  `cd use-your-stash`
 
-- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create three tables in your database called 'yarn', 'patterns', and 'yarn_patterns'.
+3. Install server-related dependences, such as Express:  
+  `npm install`
 
-The init_db.sql file contains MySQL code to insert three yarns, three patterns, and associated matching data for the yarn_patterns table to start off.
+4. Install front end dependencies, such as React, on the client side:  
+  `cd client`  
+  `npm install`
 
-### Running the App
+5. Set up the database
+    - Access the MySQL interface:  
+    **Mac users:** In your terminal, enter `mysql -u root -p`  
+    **PC users:** Search MySQL Command Line Client
 
-- Run `npm start` in project directory to start the Express server on port 4000
-- In another terminal, do `cd client` and run `npm run dev` to start the client in development mode with hot reloading in port 5173.
+    - Create a new database:  
+    `create database use_your_stash`
+  
+    - Add a `.env` file to the project folder of this repository containing your MySQL authentication information. For example:  
+      ```bash
+      DB_HOST=localhost
+      DB_USER=root
+      DB_NAME=use_your_stash
+      DB_PASS=YOURPASSWORDHERE
+      ```
+    - Migrate the database and create the tables in the main folder of the repository. This will create three tables in your database called 'yarn', 'patterns', and 'yarn_patterns'. The init_db.sql file contains MySQL code to insert three yarns, three patterns, and associated matching data for the yarn_patterns table to start off.     
+    `cd ..` (if still in the client folder)  
+    `npm run migrate`
+
+6. Start the Express servier on port 4000:  
+`npm start`
+
+7. Express needs that terminal to run. Open a new terminal to start the client in port 5173:  
+  `cd client`  
+  `npm run dev`  
+  Click on the link or copy and paste it into your browser, and you can use the app!
+
+## Screenshots
+### Home Page
+![Home Page view](/readmeassets/Home-Page.png "Home Page")
+### Fridge
+![Fridge view](/readmeassets/Fridge.png "Fridge")
+### Add an Ingredient
+![Add an Ingredient view](/readmeassets/Add-Ingredient.png "Add Ingredient")
+### Recipe Gallery
+![Recipe Galler view](/readmeassets/Recipe-Gallery.png "Recipe Gallery")
+### Recipe Page
+![Recipe Page view](/readmeassets/Recipe-Page.png "Recipe Page")
+
+## Future Features
+- Store patterns as PDFs for easy access
+- Edit yarn details
+- Edit pattern details
+- Add user login
+- Connect to Ravelry API to suggest patterns for users if they do not have a matching pattern for a yarn
+
+## License
+This project is licensed under the MIT License. See the [License](./License) file for details.
