@@ -13,7 +13,7 @@ Use Your Stash is a cosy full stack app that lets users keep track of crafting m
 8. [License](#license)
 
 ## Overview
-Use Your Stash lets users keep track of their yarn stash and fiber arts patterns. They can match yarns in their collection to patterns, and vice versa. Using yarn and patterns they already have can reduce crafting waste, and also save users money on yarn purchases. I built Use Your Stash to help keep track of my own yarn stash. It's a full stack app that is particularly interesting on the back end, where a many-to-many relationship between yarn and patterns in the database made for some more complex endpoints as I was learning Express.
+Use Your Stash lets users keep track of their yarn stash and fiber arts patterns. They can match yarns in their collection to patterns, and vice versa. Using yarn and patterns they already have can reduce crafting waste, and also save users money on yarn purchases. I built Use Your Stash to help keep track of my own yarn stash. It's a full stack app that is particularly interesting on the back end, where a many-to-many relationship between yarn and patterns in the database made for some more complex endpoints as I was learning back end programming.
 
 ## Features
 - Store and access yarn information
