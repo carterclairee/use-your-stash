@@ -1,5 +1,5 @@
 # Use Your Stash
-Use Your Stash is a full stack app that lets users keep track of crafting materials and patterns, and allows matching between the two to make the most of what users already have.
+Use Your Stash is a cosy full stack app that lets users keep track of crafting materials and patterns, and allows matching between the two to make the most of what users already have.
 
 ## Table of Contents
 
@@ -71,14 +71,14 @@ Use Your Stash lets users keep track of their yarn stash and fiber arts patterns
 ## Screenshots
 ### Home Page
 ![Home Page view](/readmeassets/Home-Page.png "Home Page")
-### Fridge
-![Fridge view](/readmeassets/Fridge.png "Fridge")
-### Add an Ingredient
-![Add an Ingredient view](/readmeassets/Add-Ingredient.png "Add Ingredient")
-### Recipe Gallery
-![Recipe Galler view](/readmeassets/Recipe-Gallery.png "Recipe Gallery")
-### Recipe Page
-![Recipe Page view](/readmeassets/Recipe-Page.png "Recipe Page")
+### Yarn with Matching Patterns
+![Yarn view](/readmeassets/Yarn-With-Match.png "Yarn with pattern match")
+### Add Yarn
+![Add Yarn view](/readmeassets/Add-Yarn.png "Add Yarn")
+### Patterns with No Match Message
+![Pattern view](/readmeassets/Patterns-No-Match.png "Patterns with no match message")
+### Add a Pattern
+![Add a Pattern view](/readmeassets/Add-Pattern.png "Add a pattern")
 
 ## Future Features
 - Store patterns as PDFs for easy access
