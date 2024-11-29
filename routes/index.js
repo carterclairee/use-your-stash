@@ -165,6 +165,7 @@ router.get("/patterns/:id", async function (req, res, next) {
   }
 });
 
+// Note: Junction table updates on WEIGHT ONLY; yardage filter is handled by matching function on front end
 // POST yarn and update the junction table. I decided to update the yarn_pattern table at the same time as posting so that the matching patterns would be immediately available
 router.post("/yarn", async function(req, res, next) {
   const {name, brand, weight, yardage, color, fiber_type} = req.body;
@@ -186,7 +187,7 @@ router.post("/yarn", async function(req, res, next) {
 
     // Check if there are any matching patterns
     const matchingPatterns = await db(
-        `SELECT id FROM patterns WHERE yarn_weight = "${weight}" AND yardage_needed <= ${yardage};`
+        `SELECT id FROM patterns WHERE yarn_weight = "${weight}";`
     );
 
     if (matchingPatterns.data.length > 0) {
@@ -285,8 +286,6 @@ router.delete("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// While trying this one, discovered that add yarn will make a yarn in the junction table even if the yaradage doesn't match!
-
 // PUT a new yardage to yarn
 router.put("/yarn/:id", async function (req, res) {
   const { id } = req.params;
@@ -303,68 +302,6 @@ router.put("/yarn/:id", async function (req, res) {
     res.status(500).send({error: error.message || "Server error"});
   }
 });
-
-// PUT a new yardage to yarn; don't want user to change anything other than yardage
-// router.put("/yarn/:id", async function (req, res) {
-//   const {id} = req.params;
-//   const {yardage} = req.body;
-
-//   try {
-//     await db(`UPDATE yarn SET yardage = ${yardage} WHERE id = ${id};`);
-
-//     // Add to the yarns_pattern table, if needed, based on new yardage
-//     // AND NOT EXISTS only returns true if there are no matching records already in the yarn_patterns table. If it returns FALSE, the insert will not execute
-
-//     // Check if there are patterns to add
-//     const patternsToAdd = await db(
-//       `SELECT p.id from patterns AS p
-//       WHERE p.yardage_needed <= ${yardage}
-//       AND NOT EXISTS (
-//         SELECT 1 FROM yarn_patterns AS yp
-//         WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
-//     );
-
-//     // Add patterns to yarn_patterns only if there are some that need to be added 
-//     if (patternsToAdd.data.length > 0) {
-//       await db(
-//         `INSERT INTO yarn_patterns (yarn_id, pattern_id)
-//         SELECT ${id}, p.id
-//         FROM patterns AS p
-//         WHERE p.yardage_needed <= 
-//           (SELECT yardage FROM yarn WHERE id = ${id}) 
-//           AND
-//           p.yarn_weight = 
-//           (SELECT weight FROM yarn WHERE id = ${id})
-//         AND NOT EXISTS (
-//           SELECT 1 FROM yarn_patterns AS yp
-//           WHERE yp.yarn_id = ${id} AND yp.pattern_id = p.id);`
-//       );
-//     };
-
-//     // Delete from the yarns_pattern table, if needed, based on new yardage
-//     const patternsToDelete = await db(
-//       `SELECT p.id FROM patterns AS p WHERE p.yardage_needed > ${yardage};`
-//     );
-
-//     if (patternsToDelete.data.length > 0) {
-//       await db(
-//         `DELETE FROM yarn_patterns
-//         WHERE yarn_id = ${id}
-//         AND pattern_id IN (
-//           SELECT p.id FROM patterns AS p
-//           WHERE p.yardage_needed > 
-//             (SELECT yardage FROM yarn WHERE id = ${id}));`
-//       );
-//     };
-    
-//     // Send updated list of yarns back
-//     const results = await db("SELECT * FROM yarn ORDER BY id ASC;"
-//     );
-//     res.send(results.data);
-//   } catch (error) {
-//     res.status(500).send({ error: error || "Unexpected server error" });
-// }
-// });
 
 // // PUT new notes to a pattern; don't want user to change anything else
 // router.put("/patterns/:id", async function (req, res, next) {
