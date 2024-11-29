@@ -165,7 +165,7 @@ router.get("/patterns/:id", async function (req, res, next) {
   }
 });
 
-// Note: Junction table updates on WEIGHT ONLY; yardage filter is handled by matching function on front end
+// Note: Junction table updates on WEIGHT ONLY; yardage filter is handled by GET request
 // POST yarn and update the junction table. I decided to update the yarn_pattern table at the same time as posting so that the matching patterns would be immediately available
 router.post("/yarn", async function(req, res, next) {
   const {name, brand, weight, yardage, color, fiber_type} = req.body;
