@@ -303,21 +303,21 @@ router.put("/yarn/:id", async function (req, res) {
   }
 });
 
-// // PUT new notes to a pattern; don't want user to change anything else
-// router.put("/patterns/:id", async function (req, res, next) {
-//   const {id} = req.params;
-//   const {notes} = req.body;
+// PUT new notes to a pattern; don't want user to change anything else
+router.put("/patterns/:id", async function (req, res) {
+  const {id} = req.params;
+  const {notes} = req.body;
 
-//   try {
-//     await db(`UPDATE patterns SET notes = "${notes}" WHERE id = "${id}";`);
+  try {
+    await db(`UPDATE patterns SET notes = "${notes}" WHERE id = ${id};`);
     
-//     // Send updated list back
-//     const results = await db("SELECT * FROM patterns ORDER BY name ASC;"
-//     );
-//     res.send(results.data);
-//   } catch (error) {
-//     res.status(500).send({ error: error.message });
-// }
-// });
+    // Send updated list back
+    const results = await db("SELECT * FROM patterns ORDER BY name ASC;"
+    );
+    res.send(results.data);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+}
+});
 
 module.exports = router;
