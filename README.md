@@ -1,6 +1,9 @@
 # Use Your Stash
 Use Your Stash is a cosy full stack app that lets users keep track of crafting materials and patterns, and allows matching between the two to make the most of what users already have.
 
+## See Use Your Stash in Action
+[Watch the video on Loom]()
+
 ## Table of Contents
 
 1. [Overview](#overview)
